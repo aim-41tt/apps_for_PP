@@ -1,19 +1,21 @@
 package math_cli.model;
 
-public class Circle implements Figure {
-	
-	private double r; // радиус
+public class Circle extends Figure {
 
-	@Override
-	public double areaFigure() {
-		return r*Math.PI;
+	private double radius;
+
+	public Circle(double radius) {
+		this.radius = radius;
 	}
 
-	/**
-	 * @param r - радиус круга
-	 */
-	public Circle(double r) {
-		this.r = r;
+	@Override
+	public double calculateArea() {
+		return radius * radius * Math.PI;
+	}
+
+	@Override
+	protected String getFigureName() {
+		return "круг";
 	}
 
 }

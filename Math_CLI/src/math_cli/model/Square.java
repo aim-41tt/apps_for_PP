@@ -1,19 +1,21 @@
 package math_cli.model;
 
-public class Square implements Figure {
-	
-	private double a;
+public class Square extends Figure {
 
-	@Override
-	public double areaFigure() {
-		return a*a;
+	private double side;
+
+	public Square(double side) {
+		this.side = side;
 	}
 
-	/**
-	 * @param a - длина стороны квадрата
-	 */
-	public Square(double a) {
-		this.a = a;
+	@Override
+	public double calculateArea() {
+		return side * side;
+	}
+
+	@Override
+	protected String getFigureName() {
+		return "квадрат";
 	}
 
 }

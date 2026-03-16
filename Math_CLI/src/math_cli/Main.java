@@ -11,6 +11,6 @@ import math_cli.controller.CLI;
  */
 public class Main {
 	public static void main(String[] args) {
-		new CLI().start();;
+		new CLI().start();
 	}
 }

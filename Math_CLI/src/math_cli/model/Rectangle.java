@@ -1,22 +1,23 @@
 package math_cli.model;
 
-public class Rectangle implements Figure {
-	
-	private double w; // ширина
-	private double l; // длина
+public class Rectangle extends Figure {
 
-	@Override
-	public double areaFigure() {
-		return w*l;
+	private double width; // ширина
+	private double length; // длина
+
+	public Rectangle(double width, double length) {
+		this.width = width;
+		this.length = length;
 	}
 
-	/**
-	 * @param w - ширина
-	 * @param l - длина
-	 */
-	public Rectangle(double w, double l) {
-		this.w = w;
-		this.l = l;
+	@Override
+	public double calculateArea() {
+		return width * length;
+	}
+
+	@Override
+	protected String getFigureName() {
+		return "прямоугольник";
 	}
 
 }
