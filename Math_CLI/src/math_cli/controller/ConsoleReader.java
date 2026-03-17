@@ -14,9 +14,8 @@ public class ConsoleReader {
 		return scanner.nextLine().trim();
 	}
 
-	public double readPositiveDouble(String prompt) {
+	public double readPositiveDouble() {
 		while (true) {
-			System.out.print(prompt);
 			String input = scanner.nextLine().trim().replace(",", ".");
 			try {
 				double value = Double.parseDouble(input);

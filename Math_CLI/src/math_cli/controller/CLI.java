@@ -19,9 +19,9 @@ public class CLI {
 			String choice = consoleReader.readLine();
 
 			switch (choice) {
-			case "1" -> handleCircle();
-			case "2" -> handleSquare();
-			case "3" -> handleRectangle();
+			case "1" -> calculateAndPrintCircleArea();
+			case "2" -> calculateAndPrintSquareArea();
+			case "3" -> calculateAndPrintRectangleArea();
 			case "0" -> {
 				System.out.println("До свидания!");
 				return;
@@ -40,21 +40,25 @@ public class CLI {
 		System.out.print("Ваш выбор: ");
 	}
 
-	private void handleCircle() {
-		double radius = consoleReader.readPositiveDouble("Введите радиус: ");
+	private void calculateAndPrintCircleArea() {
+		System.out.print("Введите радиус: ");
+		double radius = consoleReader.readPositiveDouble();
 		Figure circle = new Circle(radius);
-		printArea(circle);
+		System.out.println(circle.formatArea());
 	}
 
-	private void handleSquare() {
-		double side = consoleReader.readPositiveDouble("Введите длину стороны: ");
+	private void calculateAndPrintSquareArea() {
+		System.out.print("Введите длину стороны: ");
+		double side = consoleReader.readPositiveDouble();
 		Figure square = new Square(side);
-		printArea(square);
+		System.out.println(square.formatArea());
 	}
-
-	private void handleRectangle() {
-		double width = consoleReader.readPositiveDouble("Введите ширину: ");
-		double length = consoleReader.readPositiveDouble("Введите длину: ");
+	
+	private void calculateAndPrintRectangleArea() {
+		System.out.print("Введите ширину: ");
+		double width = consoleReader.readPositiveDouble();
+		System.out.print("Введите длину: ");
+		double length = consoleReader.readPositiveDouble();
 
 		if (width == length) {
 			System.out.println("Это квадрат, а не прямоугольник.");
@@ -62,11 +66,8 @@ public class CLI {
 		}
 
 		Figure rectangle = new Rectangle(width, length);
-		printArea(rectangle);
+		System.out.println(rectangle.formatArea());
 	}
 
-	private void printArea(Figure figure) {
-		System.out.println(figure.formatArea());
-	}
 
 }
