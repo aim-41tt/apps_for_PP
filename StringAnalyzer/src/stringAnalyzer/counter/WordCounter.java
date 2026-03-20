@@ -1,6 +1,4 @@
-package stringAnalyzer.counter.character;
-
-import stringAnalyzer.counter.CharacterCounter;
+package stringAnalyzer.counter;
 
 public class WordCounter implements CharacterCounter {
 
