@@ -1,4 +1,4 @@
-package stringAnalyzer.counter.word;
+package stringAnalyzer.counter.character;
 
 import stringAnalyzer.counter.CharacterCounter;
 

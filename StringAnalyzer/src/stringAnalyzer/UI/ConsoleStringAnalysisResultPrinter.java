@@ -6,11 +6,11 @@ public class ConsoleStringAnalysisResultPrinter implements StringAnalysisResultP
 	@Override
 	public void print(StringAnalysisResult result) {
 		System.out.println("\nРезультаты анализа:");
-		System.out.printf(" Кол-во слов:              %d%n", result.getWordCount());
-		System.out.printf(" Кол-во букв:              %d%n", result.getLetterCount());
-		System.out.printf(" Кол-во гласных:           %d%n", result.getVowelCount());
-		System.out.printf(" Кол-во согласных:         %d%n", result.getConsonantCount());
-		System.out.printf(" Кол-во знаков препинания: %d%n", result.getPunctuationCount());
-		System.out.printf(" Кол-во пробелов:          %d%n", result.getSpaceCount());
+		System.out.printf(" Кол-во слов:              %d%n", result.wordCount());
+		System.out.printf(" Кол-во букв:              %d%n", result.letterCount());
+		System.out.printf(" Кол-во гласных:           %d%n", result.vowelCount());
+		System.out.printf(" Кол-во согласных:         %d%n", result.consonantCount());
+		System.out.printf(" Кол-во знаков препинания: %d%n", result.punctuationCount());
+		System.out.printf(" Кол-во пробелов:          %d%n", result.spaceCount());
 	}
 }

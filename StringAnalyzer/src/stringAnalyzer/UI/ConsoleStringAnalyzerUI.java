@@ -6,19 +6,19 @@ import stringAnalyzer.model.StringAnalysisResult;
 import stringAnalyzer.service.StringAnalysisService;
 
 public class ConsoleStringAnalyzerUI {
-	
+
 	private static final String EXIT_RU = "выход";
 	private static final String EXIT_EN = "exit";
 
 	private final StringAnalysisService analysisService;
 	private final StringAnalysisResultPrinter printer;
-	private final Scanner sc;
+	private final Scanner scanner;
 
 	public ConsoleStringAnalyzerUI(StringAnalysisService analysisService, StringAnalysisResultPrinter printer,
-			Scanner sc) {
+			Scanner scanner) {
 		this.analysisService = analysisService;
 		this.printer = printer;
-		this.sc = sc;
+		this.scanner = scanner;
 	}
 
 	public void run() {
@@ -27,16 +27,11 @@ public class ConsoleStringAnalyzerUI {
 
 		while (true) {
 			System.out.print("> ");
-			String input = sc.nextLine();
+			String input = scanner.nextLine();
 
-			if (input.equalsIgnoreCase(EXIT_RU) || input.equalsIgnoreCase(EXIT_EN)) {
+			if (EXIT_RU.equalsIgnoreCase(input) || EXIT_EN.equalsIgnoreCase(input)) {
 				System.out.println("Завершение программы.");
 				break;
-			}
-
-			if (input.isBlank()) {
-				System.out.println("Строка пустая. Пожалуйста, введите текст.");
-				continue;
 			}
 
 			StringAnalysisResult result = analysisService.analyze(input);

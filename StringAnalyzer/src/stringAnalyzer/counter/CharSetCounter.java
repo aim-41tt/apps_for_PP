@@ -20,7 +20,7 @@ public abstract class CharSetCounter implements CharacterCounter {
 	}
 
 	protected boolean isInCharSet(char ch) {
-		return charSet.indexOf(ch) > 0;
+		return charSet.indexOf(ch) >= 0;
 	}
 
 	protected abstract boolean matches(char ch);
