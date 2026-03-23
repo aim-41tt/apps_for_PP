@@ -3,13 +3,13 @@ package stringAnalyzer;
 import java.util.Scanner;
 
 import stringAnalyzer.UI.ConsoleStringAnalyzerUI;
-import stringAnalyzer.service.StringAnalysisServiceImpl;
+import stringAnalyzer.service.StringAnalysisService;
 
 public class Main {
 
 	public static void main(String[] args) {
 		ConsoleStringAnalyzerUI ui = new ConsoleStringAnalyzerUI(
-				new StringAnalysisServiceImpl(),
+				new StringAnalysisService(),
 				new Scanner(System.in)
 		);
 

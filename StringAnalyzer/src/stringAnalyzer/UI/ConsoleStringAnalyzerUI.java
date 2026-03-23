@@ -3,17 +3,17 @@ package stringAnalyzer.UI;
 import java.util.Scanner;
 
 import stringAnalyzer.model.StringAnalysisResult;
-import stringAnalyzer.service.StringAnalysisServiceImpl;
+import stringAnalyzer.service.StringAnalysisService;
 
 public class ConsoleStringAnalyzerUI {
 
 	private static final String EXIT_RU = "выход";
 	private static final String EXIT_EN = "exit";
 
-	private final StringAnalysisServiceImpl analysisService;
+	private final StringAnalysisService analysisService;
 	private final Scanner scanner;
 
-	public ConsoleStringAnalyzerUI(StringAnalysisServiceImpl analysisService, Scanner scanner) {
+	public ConsoleStringAnalyzerUI(StringAnalysisService analysisService, Scanner scanner) {
 		this.analysisService = analysisService;
 		this.scanner = scanner;
 	}
