@@ -3,21 +3,18 @@ package stringAnalyzer.UI;
 import java.util.Scanner;
 
 import stringAnalyzer.model.StringAnalysisResult;
-import stringAnalyzer.service.StringAnalysisService;
+import stringAnalyzer.service.StringAnalysisServiceImpl;
 
 public class ConsoleStringAnalyzerUI {
 
 	private static final String EXIT_RU = "выход";
 	private static final String EXIT_EN = "exit";
 
-	private final StringAnalysisService analysisService;
-	private final StringAnalysisResultPrinter printer;
+	private final StringAnalysisServiceImpl analysisService;
 	private final Scanner scanner;
 
-	public ConsoleStringAnalyzerUI(StringAnalysisService analysisService, StringAnalysisResultPrinter printer,
-			Scanner scanner) {
+	public ConsoleStringAnalyzerUI(StringAnalysisServiceImpl analysisService, Scanner scanner) {
 		this.analysisService = analysisService;
-		this.printer = printer;
 		this.scanner = scanner;
 	}
 
@@ -35,10 +32,19 @@ public class ConsoleStringAnalyzerUI {
 			}
 
 			StringAnalysisResult result = analysisService.analyze(input);
-			printer.print(result);
+			printResult(result);
 
 			System.out.println("\nВведите следующую строку (или 'выход' для завершения):");
 		}
 	}
 
+	private void printResult(StringAnalysisResult result) {
+		System.out.println("\nРезультаты анализа:");
+		System.out.printf(" Кол-во слов:              %d%n", result.wordCount());
+		System.out.printf(" Кол-во букв:              %d%n", result.letterCount());
+		System.out.printf(" Кол-во гласных:           %d%n", result.vowelCount());
+		System.out.printf(" Кол-во согласных:         %d%n", result.consonantCount());
+		System.out.printf(" Кол-во знаков препинания: %d%n", result.punctuationCount());
+		System.out.printf(" Кол-во пробелов:          %d%n", result.spaceCount());
+	}
 }

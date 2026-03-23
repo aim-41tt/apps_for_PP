@@ -1,30 +1,59 @@
 package stringAnalyzer.service;
 
-import stringAnalyzer.counter.CharacterCounter;
+import java.util.BitSet;
+
 import stringAnalyzer.model.StringAnalysisResult;
 
-public class StringAnalysisServiceImpl implements StringAnalysisService {
-	private final CharacterCounter wordCounter;
-	private final CharacterCounter letterCounter;
-	private final CharacterCounter vowelCounter;
-	private final CharacterCounter consonantCounter;
-	private final CharacterCounter punctuationCounter;
-	private final CharacterCounter spaceCounter;
+public class StringAnalysisServiceImpl {
 
-	public StringAnalysisServiceImpl(CharacterCounter wordCounter, CharacterCounter letterCounter,
-			CharacterCounter vowelCounter, CharacterCounter consonantCounter, CharacterCounter punctuationCounter,
-			CharacterCounter spaceCounter) {
-		this.wordCounter = wordCounter;
-		this.letterCounter = letterCounter;
-		this.vowelCounter = vowelCounter;
-		this.consonantCounter = consonantCounter;
-		this.punctuationCounter = punctuationCounter;
-		this.spaceCounter = spaceCounter;
+	private static final BitSet VOWELS = toBitSet("аеёиоуыэюяАЕЁИОУЫЭЮЯaeiouAEIOU");
+	private static final BitSet SIGNS = toBitSet("ьъЬЪ");
+	private static final BitSet PUNCTUATION = toBitSet(".,!?;:—–-()[]{}\"'«»…");
+
+	private static BitSet toBitSet(String chars) {
+		BitSet bitSet = new BitSet();
+		for (char ch : chars.toCharArray()) {
+			bitSet.set(ch);
+		}
+		return bitSet;
 	}
 
-	@Override
 	public StringAnalysisResult analyze(String text) {
-		return new StringAnalysisResult(wordCounter.count(text), letterCounter.count(text), vowelCounter.count(text),
-				consonantCounter.count(text), punctuationCounter.count(text), spaceCounter.count(text));
+		int words = 0;
+		int letters = 0;
+		int vowels = 0;
+		int consonants = 0;
+		int punctuation = 0;
+		int spaces = 0;
+
+		boolean inWord = false;
+
+		for (char ch : text.toCharArray()) {
+			if (ch == ' ') {
+				spaces++;
+				inWord = false;
+			} else if (Character.isWhitespace(ch)) {
+				inWord = false;
+			} else {
+				if (!inWord) {
+					words++;
+					inWord = true;
+				}
+
+				if (VOWELS.get(ch)) {
+					letters++;
+					vowels++;
+				} else if (Character.isLetter(ch)) {
+					letters++;
+					if (!SIGNS.get(ch)) {
+						consonants++;
+					}
+				} else if (PUNCTUATION.get(ch)) {
+					punctuation++;
+				}
+			}
+		}
+
+		return new StringAnalysisResult(words, letters, vowels, consonants, punctuation, spaces);
 	}
 }
