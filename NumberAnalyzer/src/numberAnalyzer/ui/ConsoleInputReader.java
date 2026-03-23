@@ -7,18 +7,18 @@ import numberAnalyzer.parser.NumberParser;
 
 public class ConsoleInputReader<T extends Number> {
 
-	private final Scanner sc;
+	private final Scanner scanner;
 	private final NumberParser<T> parser;
 
-	public ConsoleInputReader(Scanner sc, NumberParser<T> parser) {
-		this.sc = sc;
+	public ConsoleInputReader(Scanner scanner, NumberParser<T> parser) {
+		this.scanner = scanner;
 		this.parser = parser;
 	}
 
 	public List<T> readNumberList(String prompt) {
 		while (true) {
 			System.out.print(prompt);
-			String input = sc.nextLine().trim();
+			String input = scanner.nextLine().trim();
 
 			if (input.isBlank()) {
 				System.out.println("Ошибка: строка не должна быть пустой. Попробуйте ещё раз.");

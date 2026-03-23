@@ -9,8 +9,8 @@ import java.util.Set;
 
 import numberAnalyzer.model.NumberListAnalysisResult;
 
-public class NumberListAnalysisServiceImpl<T extends Number & Comparable<T>> implements NumberListAnalysisService<T> {
-	@Override
+public class NumberListAnalysisServiceImpl<T extends Number & Comparable<T>> {
+
 	public NumberListAnalysisResult<T> analyze(List<T> numbers) {
 
 		T max = findMax(numbers);
@@ -21,7 +21,6 @@ public class NumberListAnalysisServiceImpl<T extends Number & Comparable<T>> imp
 		return new NumberListAnalysisResult<T>(max, average, sortedList, uniqueElements);
 	}
 
-	@Override
 	public List<T> merge(List<T> first, List<T> second) {
 		Set<T> merged = new LinkedHashSet<>(first);
 		merged.addAll(second);
@@ -45,5 +44,4 @@ public class NumberListAnalysisServiceImpl<T extends Number & Comparable<T>> imp
 	private List<T> findUnique(List<T> numbers) {
 		return new ArrayList<T>(new LinkedHashSet<T>(numbers));
 	}
-
 }
