@@ -41,19 +41,19 @@ public class StringAnalysisService {
 					inWord = true;
 				}
 
+				letters++;
 				if (VOWELS.get(ch)) {
-					letters++;
 					vowels++;
 				} else {
-					letters++;
 					if (!HARD_SOFT_SIGNS.get(ch)) {
 						consonants++;
 					}
 				}
 			} else {
-				inWord = false;
 				if (PUNCTUATION.get(ch)) {
 					punctuation++;
+				} else {
+					inWord = false;
 				}
 			}
 		}
