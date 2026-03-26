@@ -8,11 +8,13 @@ import stringAnalyzer.service.StringAnalysisService;
 public class Main {
 
 	public static void main(String[] args) {
-		ConsoleStringAnalyzerUI ui = new ConsoleStringAnalyzerUI(
-				new StringAnalysisService(),
-				new Scanner(System.in)
-		);
 
-		ui.run();
+		StringAnalysisService analysisService = new StringAnalysisService();
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			ConsoleStringAnalyzerUI ui = new ConsoleStringAnalyzerUI(analysisService, scanner);
+			ui.run();
+		}
+
 	}
 }
