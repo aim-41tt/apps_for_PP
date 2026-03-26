@@ -1,7 +1,7 @@
 package numberAnalyzer;
 
 import numberAnalyzer.parser.IntegerParser;
-import numberAnalyzer.service.NumberListAnalysisServiceImpl;
+import numberAnalyzer.service.NumberListAnalysisService;
 import numberAnalyzer.ui.ConsoleInputReader;
 import numberAnalyzer.ui.ConsoleNumberAnalyzerUI;
 
@@ -12,9 +12,9 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		ConsoleNumberAnalyzerUI<Integer> ui = new ConsoleNumberAnalyzerUI<>(
-				new NumberListAnalysisServiceImpl<>(),
-				new ConsoleInputReader<>(scanner, new IntegerParser()));
+		ConsoleNumberAnalyzerUI ui = new ConsoleNumberAnalyzerUI(
+				new NumberListAnalysisService(),
+				new ConsoleInputReader(scanner, new IntegerParser()));
 
 		ui.run();
 

@@ -1,21 +1,21 @@
 package numberAnalyzer.ui;
 
-import java.util.List;
+
 import java.util.Scanner;
 
-import numberAnalyzer.parser.NumberParser;
+import numberAnalyzer.parser.IntegerParser;
 
-public class ConsoleInputReader<T extends Number> {
+public class ConsoleInputReader {
 
 	private final Scanner scanner;
-	private final NumberParser<T> parser;
+	private final IntegerParser parser;
 
-	public ConsoleInputReader(Scanner scanner, NumberParser<T> parser) {
+	public ConsoleInputReader(Scanner scanner, IntegerParser parser) {
 		this.scanner = scanner;
 		this.parser = parser;
 	}
 
-	public List<T> readNumberList(String prompt) {
+	public int[] readNumberList(String prompt) {
 		while (true) {
 			System.out.print(prompt);
 			String input = scanner.nextLine().trim();
@@ -26,8 +26,8 @@ public class ConsoleInputReader<T extends Number> {
 			}
 
 			try {
-				List<T> numbers = parser.parse(input);
-				if (numbers.isEmpty()) {
+				int[] numbers = parser.parse(input);
+				if (numbers.length == 0) {
 					System.out.println("Ошибка: список не должен быть пустым. Попробуйте ещё раз.");
 					continue;
 				}

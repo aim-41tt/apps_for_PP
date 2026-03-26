@@ -1,12 +1,12 @@
 package numberAnalyzer.model;
 
-import java.util.List;
+import java.util.Arrays;
 
-public record NumberListAnalysisResult<T extends Number & Comparable<T>>(T max, double average, List<T> sortedList,
-		List<T> uniqueElements) {
+public record NumberListAnalysisResult(double average, int[] sortedList, int[] uniqueElements) {
 
 	public NumberListAnalysisResult {
-		sortedList = List.copyOf(sortedList);
-		uniqueElements = List.copyOf(uniqueElements);
+		sortedList = Arrays.copyOf(sortedList, sortedList.length);
+		uniqueElements = Arrays.copyOf(uniqueElements, uniqueElements.length);
 	}
+
 }
