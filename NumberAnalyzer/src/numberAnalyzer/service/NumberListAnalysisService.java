@@ -23,10 +23,6 @@ public class NumberListAnalysisService {
 	}
 
 	private double calculateAverage(int[] numbers) {
-		if (numbers.length == 0) {
-			throw new IllegalArgumentException("Массив пуст");
-		}
-
 		return Arrays.stream(numbers)
 				.average()
 				.orElseThrow(() -> new ArithmeticException("Не удалось рассчитать среднее значение"));
