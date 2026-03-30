@@ -1,14 +1,14 @@
 package stringAnalyzer.service;
 
 import java.util.BitSet;
-
 import stringAnalyzer.model.StringAnalysisResult;
 
 public class StringAnalysisService {
 
 	private static final BitSet VOWELS = toBitSet("аеёиоуыэюяАЕЁИОУЫЭЮЯaeiouAEIOU");
 	private static final BitSet HARD_SOFT_SIGNS = toBitSet("ьъЬЪ");
-	private static final BitSet PUNCTUATION = toBitSet(".,!?;:—–-()[]{}\"'«»…");
+	private static final BitSet PUNCTUATION = toBitSet(".,!?;:—–()[]{}«»…\u201C\u201D\u2018\u2019");
+	private static final BitSet WORD_INTERNAL = toBitSet("-'");
 
 	private static BitSet toBitSet(String chars) {
 		BitSet bitSet = new BitSet();
@@ -31,7 +31,6 @@ public class StringAnalysisService {
 		for (char ch : text.toCharArray()) {
 			if (Character.isWhitespace(ch)) {
 				inWord = false;
-
 				if (ch == ' ') {
 					spaces++;
 				}
@@ -40,7 +39,6 @@ public class StringAnalysisService {
 					words++;
 					inWord = true;
 				}
-
 				letters++;
 				if (VOWELS.get(ch)) {
 					vowels++;
@@ -49,15 +47,20 @@ public class StringAnalysisService {
 						consonants++;
 					}
 				}
-			} else {
+			} else if (!Character.isDigit(ch))  {
 				if (PUNCTUATION.get(ch)) {
 					punctuation++;
-				} else {
 					inWord = false;
+				} else {
+					if (!WORD_INTERNAL.get(ch)) {
+						inWord = false;
+					}
 				}
 			}
+
 		}
 
 		return new StringAnalysisResult(words, letters, vowels, consonants, punctuation, spaces);
 	}
+
 }
