@@ -1,9 +1,7 @@
 package numberAnalyzer.service;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import numberAnalyzer.model.NumberListAnalysisResult;
 
@@ -19,12 +17,9 @@ public class NumberListAnalysisService {
 	}
 
 	public int[] merge(int[] first, int[] second) {
-		Set<Integer> merged = new TreeSet<>();
-
-		for (int n : first) merged.add(n);
-		for (int n : second) merged.add(n);
-
-		return merged.stream().mapToInt(Integer::intValue).toArray();
+		return IntStream.concat(Arrays.stream(first), Arrays.stream(second))
+				  .distinct()
+				  .toArray();
 	}
 
 	private double calculateAverage(int[] numbers) {
@@ -34,11 +29,10 @@ public class NumberListAnalysisService {
 
 		return Arrays.stream(numbers)
 				.average()
-				.orElseThrow();
+				.orElseThrow(() -> new ArithmeticException("Не удалось рассчитать среднее значение"));
 	}
 
 	private int[] sortAscending(int[] numbers) {
-		
 		return Arrays.stream(numbers)
 				.sorted()
 				.toArray();
