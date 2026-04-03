@@ -1,7 +1,7 @@
 services:
 
   postgres:
-    image: postgres:latest
+    image: postgres:18
     container_name: rest-task-service-postgres
     restart: unless-stopped
     environment:

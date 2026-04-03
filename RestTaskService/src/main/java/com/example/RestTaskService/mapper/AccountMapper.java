@@ -1,52 +1,29 @@
 package com.example.RestTaskService.mapper;
 
-import java.util.List;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import org.springframework.stereotype.Component;
-
-import com.example.RestTaskService.dto.request.AccountRequest;
-import com.example.RestTaskService.dto.response.AccountResponse;
-import com.example.RestTaskService.dto.response.TaskResponse;
+import com.example.RestTaskService.dto.request.account.CreateAccountRequest;
+import com.example.RestTaskService.dto.request.account.UpdateAccountRequest;
+import com.example.RestTaskService.dto.response.account.CreateAccountResponse;
+import com.example.RestTaskService.dto.response.account.GetAccountResponse;
+import com.example.RestTaskService.dto.response.account.UpdateAccountResponse;
 import com.example.RestTaskService.model.Account;
 
-@Component
-public class AccountMapper {
+@Mapper(componentModel = "spring", uses = TaskMapper.class)
+public interface AccountMapper {
 
-	private final TaskMapper taskMapper;
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "tasks", ignore = true)
+	Account toEntity(CreateAccountRequest request);
 
-	public AccountMapper(TaskMapper taskMapper) {
-		this.taskMapper = taskMapper;
-	}
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "tasks", ignore = true)
+	Account toEntity(UpdateAccountRequest request);
 
-	public Account toEntity(AccountRequest request) {
-		Account account = new Account();
-		account.setName(request.name());
-		account.setSurname(request.surname());
-		account.setAge(request.age());
-		return account;
-	}
+	CreateAccountResponse toCreateResponse(Account account);
 
-	public AccountResponse toResponse(Account account) {
-		return new AccountResponse(
-				account.getId(),
-				account.getName(),
-				account.getSurname(),
-				account.getAge(),
-				List.of()
-		);
-	}
+	UpdateAccountResponse toUpdateResponse(Account account);
 
-	public AccountResponse toResponseWithTasks(Account account) {
-		List<TaskResponse> tasks = account.getTasks().stream()
-				.map(taskMapper::toResponse)
-				.toList();
-
-		return new AccountResponse(
-				account.getId(),
-				account.getName(),
-				account.getSurname(),
-				account.getAge(),
-				tasks
-		);
-	}
+	GetAccountResponse toGetResponse(Account account);
 }

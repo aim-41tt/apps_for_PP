@@ -15,38 +15,54 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
-import com.example.RestTaskService.dto.request.AccountRequest;
-import com.example.RestTaskService.dto.response.AccountResponse;
+import com.example.RestTaskService.dto.request.account.CreateAccountRequest;
+import com.example.RestTaskService.dto.request.account.UpdateAccountRequest;
+import com.example.RestTaskService.dto.response.account.CreateAccountResponse;
+import com.example.RestTaskService.dto.response.account.GetAccountResponse;
+import com.example.RestTaskService.dto.response.account.UpdateAccountResponse;
+import com.example.RestTaskService.mapper.AccountMapper;
+import com.example.RestTaskService.model.Account;
 import com.example.RestTaskService.service.AccountService;
 
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
-	private final AccountService accountService;
 
-	public AccountController(AccountService accountService) {
+	private final AccountService accountService;
+	private final AccountMapper accountMapper;
+
+	public AccountController(AccountService accountService, AccountMapper accountMapper) {
 		this.accountService = accountService;
+		this.accountMapper = accountMapper;
 	}
 
 	@GetMapping
-	public List<AccountResponse> getAllAccounts() {
-		return accountService.getAllAccounts();
+	public List<GetAccountResponse> getAllAccounts() {
+		return accountService.getAllAccounts().stream()
+				.map(accountMapper::toGetResponse)
+				.toList();
+	}
+
+	@GetMapping("/{id}")
+	public GetAccountResponse getAccountById(@PathVariable Long id) {
+		Account account = accountService.getAccountById(id);
+		return accountMapper.toGetResponse(account);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public AccountResponse createAccount(@Valid @RequestBody AccountRequest request) {
-		return accountService.createAccount(request);
-	}
-
-	@GetMapping("/{id}")
-	public AccountResponse getAccountById(@PathVariable Long id) {
-		return accountService.getAccountById(id);
+	public CreateAccountResponse createAccount(@Valid @RequestBody CreateAccountRequest request) {
+		Account account = accountMapper.toEntity(request);
+		Account saved = accountService.createAccount(account);
+		return accountMapper.toCreateResponse(saved);
 	}
 
 	@PutMapping("/{id}")
-	public AccountResponse updateAccount(@PathVariable Long id, @Valid @RequestBody AccountRequest request) {
-		return accountService.updateAccount(id, request);
+	public UpdateAccountResponse updateAccount(@PathVariable Long id,
+			@Valid @RequestBody UpdateAccountRequest request) {
+		Account accountData = accountMapper.toEntity(request);
+		Account updated = accountService.updateAccount(id, accountData);
+		return accountMapper.toUpdateResponse(updated);
 	}
 
 	@DeleteMapping("/{id}")

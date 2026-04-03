@@ -1,35 +1,36 @@
 package com.example.RestTaskService.mapper;
 
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import com.example.RestTaskService.dto.request.TaskRequest;
-import com.example.RestTaskService.dto.response.TaskResponse;
-import com.example.RestTaskService.model.Account;
+import com.example.RestTaskService.dto.request.task.CreateTaskRequest;
+import com.example.RestTaskService.dto.request.task.UpdateTaskRequest;
+import com.example.RestTaskService.dto.response.task.CreateTaskResponse;
+import com.example.RestTaskService.dto.response.task.GetTaskResponse;
+import com.example.RestTaskService.dto.response.task.ReassignTaskResponse;
+import com.example.RestTaskService.dto.response.task.UpdateTaskResponse;
 import com.example.RestTaskService.model.Task;
 
-@Component
-public class TaskMapper {
+@Mapper(componentModel = "spring")
+public interface TaskMapper {
 
-	public Task toEntity(TaskRequest request) {
-		Task task = new Task();
-		task.setTitle(request.title());
-		task.setBody(request.body());
-		task.setCompleted(request.completed());
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "account", ignore = true)
+	Task toEntity(CreateTaskRequest request);
 
-		Account account = new Account();
-		account.setId(request.accountId());
-		task.setAccount(account);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "account", ignore = true)
+	Task toEntity(UpdateTaskRequest request);
 
-		return task;
-	}
+	@Mapping(source = "account.id", target = "accountId")
+	CreateTaskResponse toCreateResponse(Task task);
 
-	public TaskResponse toResponse(Task task) {
-		return new TaskResponse(
-				task.getId(),
-				task.getTitle(),
-				task.getBody(),
-				task.isCompleted(),
-				task.getAccount().getId()
-		);
-	}
+	@Mapping(source = "account.id", target = "accountId")
+	GetTaskResponse toGetResponse(Task task);
+
+	@Mapping(source = "account.id", target = "accountId")
+	UpdateTaskResponse toUpdateResponse(Task task);
+
+	@Mapping(source = "account.id", target = "accountId")
+	ReassignTaskResponse toReassignResponse(Task task);
 }
