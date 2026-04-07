@@ -1,11 +1,12 @@
 package com.example.RestTaskService.repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.RestTaskService.model.Task;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
-	List<Task> findByAccountId(Long accountId);
+public interface TaskRepository extends JpaRepository<Task, UUID> {
+	List<Task> findByAccountId(UUID accountId);
 }

@@ -1,5 +1,7 @@
 package com.example.RestTaskService.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,8 +27,8 @@ import lombok.Setter;
 public class Task {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 
 	@ManyToOne
 	@JoinColumn(name = "account_id", nullable = false)

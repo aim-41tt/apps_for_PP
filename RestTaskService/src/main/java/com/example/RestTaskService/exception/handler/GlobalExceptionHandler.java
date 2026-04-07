@@ -1,4 +1,4 @@
-package com.example.RestTaskService.controller.exception;
+package com.example.RestTaskService.exception.handler;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;

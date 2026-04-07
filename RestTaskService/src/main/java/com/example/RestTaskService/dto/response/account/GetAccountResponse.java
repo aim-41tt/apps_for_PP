@@ -1,8 +1,7 @@
 package com.example.RestTaskService.dto.response.account;
 
 import java.util.List;
+import java.util.UUID;
 
-import com.example.RestTaskService.dto.response.task.GetTaskResponse;
-
-public record GetAccountResponse(Long id, String name, String surname, int age, List<GetTaskResponse> tasks) {
+public record GetAccountResponse(UUID id, String name, String surname, int age, List<TaskInfo> tasks) {
 }

@@ -1,11 +1,13 @@
 package com.example.RestTaskService.dto.request.task;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotNull;
 
 public record ReassignTaskRequest(
         @NotNull(message = "ID задачи обязателен")
-        Long taskId,
+        UUID taskId,
 
         @NotNull(message = "ID целевого аккаунта обязателен")
-        Long targetAccountId
+        UUID targetAccountId
 ) {}

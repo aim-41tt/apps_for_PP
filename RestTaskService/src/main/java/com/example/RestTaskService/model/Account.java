@@ -1,11 +1,12 @@
 package com.example.RestTaskService.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,8 +26,8 @@ import lombok.Setter;
 public class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 
 	@Column(nullable = false, length = 100)
 	private String name;
@@ -37,7 +38,7 @@ public class Account {
 	@Column(nullable = false)
 	private int age;
 
-	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-	private List<Task> tasks = new ArrayList<>();
+	@OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+	private Set<Task> tasks = new HashSet<>();
 
 }

@@ -1,5 +1,7 @@
 package com.example.RestTaskService.dto.response.task;
 
-public record ReassignTaskResponse(Long id, Long accountId, String title, String body, boolean completed) {
+import java.util.UUID;
+
+public record ReassignTaskResponse(UUID id, UUID accountId, String title, String body, boolean completed) {
 
 }

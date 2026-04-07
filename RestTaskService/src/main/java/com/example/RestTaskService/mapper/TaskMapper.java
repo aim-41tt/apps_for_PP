@@ -1,8 +1,11 @@
 package com.example.RestTaskService.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.example.RestTaskService.config.MapStructConfig;
 import com.example.RestTaskService.dto.request.task.CreateTaskRequest;
 import com.example.RestTaskService.dto.request.task.UpdateTaskRequest;
 import com.example.RestTaskService.dto.response.task.CreateTaskResponse;
@@ -11,7 +14,7 @@ import com.example.RestTaskService.dto.response.task.ReassignTaskResponse;
 import com.example.RestTaskService.dto.response.task.UpdateTaskResponse;
 import com.example.RestTaskService.model.Task;
 
-@Mapper(componentModel = "spring")
+@Mapper(config = MapStructConfig.class)
 public interface TaskMapper {
 
 	@Mapping(target = "id", ignore = true)
@@ -33,4 +36,6 @@ public interface TaskMapper {
 
 	@Mapping(source = "account.id", target = "accountId")
 	ReassignTaskResponse toReassignResponse(Task task);
+	
+	List<GetTaskResponse> toGetTaskResponseList(List<Task> tasks);
 }

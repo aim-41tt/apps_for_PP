@@ -1,11 +1,11 @@
 package com.example.RestTaskService.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.RestTaskService.model.Account;
 import com.example.RestTaskService.model.Task;
 import com.example.RestTaskService.repository.TaskRepository;
 
@@ -17,59 +17,38 @@ import lombok.AllArgsConstructor;
 public class TaskService {
 
 	private final TaskRepository taskRepository;
-	private final AccountService accountService;
 
-	@Transactional
-	public Task createTask(Task task, Long accountId) {
-		Account account = accountService.findAccountById(accountId);
-		task.setAccount(account);
+	public Task saveTask(Task task) {
 		return taskRepository.save(task);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Task> getAllTasks() {
 		return taskRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
-	public List<Task> getTasksByAccountId(Long accountId) {
+	public List<Task> getTasksByAccountId(UUID accountId) {
 		return taskRepository.findByAccountId(accountId);
 	}
 
 	@Transactional(readOnly = true)
-	public Task getTaskById(Long id) {
+	public Task getTaskById(UUID id) {
 		return findTaskById(id);
 	}
 
 	@Transactional
-	public Task updateTask(Long id, Task request) {
+	public Task updateTask(UUID id, Task request) {
 		Task existingTask = findTaskById(id);
 		existingTask.setTitle(request.getTitle());
 		existingTask.setBody(request.getBody());
 		existingTask.setCompleted(request.isCompleted());
-		return taskRepository.save(existingTask);
+		return existingTask;
 	}
 
-	@Transactional
-	public void deleteTask(Long id) {
+	public void deleteTask(UUID id) {
 		taskRepository.deleteById(id);
 	}
 
-	@Transactional
-	public Task assignTaskToAccount(Long taskId, Long accountId) {
-		Task task = findTaskById(taskId);
-
-		if (task.getAccount() != null && task.getAccount().getId().equals(accountId)) {
-			throw new IllegalArgumentException(
-					"Задача с id: " + taskId + " уже прикреплена к аккаунту с id: " + accountId);
-		}
-
-		Account account = accountService.findAccountById(accountId);
-		task.setAccount(account);
-		return taskRepository.save(task);
-	}
-
-	private Task findTaskById(Long id) {
+	public Task findTaskById(UUID id) {
 		return taskRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Задача не найдена с идентификатором: " + id));
 	}

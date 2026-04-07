@@ -16,5 +16,5 @@ public record UpdateAccountRequest(
 
         @Max(value = 200, message = "Возраст не может быть столь большим")
         @PositiveOrZero(message = "Возраст не может быть отрицательным")
-        int age
+        Integer age
 ) {}

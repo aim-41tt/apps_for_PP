@@ -1,8 +1,11 @@
 package com.example.RestTaskService.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.example.RestTaskService.config.MapStructConfig;
 import com.example.RestTaskService.dto.request.account.CreateAccountRequest;
 import com.example.RestTaskService.dto.request.account.UpdateAccountRequest;
 import com.example.RestTaskService.dto.response.account.CreateAccountResponse;
@@ -10,7 +13,7 @@ import com.example.RestTaskService.dto.response.account.GetAccountResponse;
 import com.example.RestTaskService.dto.response.account.UpdateAccountResponse;
 import com.example.RestTaskService.model.Account;
 
-@Mapper(componentModel = "spring", uses = TaskMapper.class)
+@Mapper(config = MapStructConfig.class, uses = TaskMapper.class)
 public interface AccountMapper {
 
 	@Mapping(target = "id", ignore = true)
@@ -26,4 +29,6 @@ public interface AccountMapper {
 	UpdateAccountResponse toUpdateResponse(Account account);
 
 	GetAccountResponse toGetResponse(Account account);
+
+	List<GetAccountResponse> toGetAccountResponseList(List<Account> accounts);
 }

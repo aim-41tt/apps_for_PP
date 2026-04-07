@@ -1,4 +1,6 @@
 package com.example.RestTaskService.dto.response.account;
 
-public record UpdateAccountResponse(Long id, String name, String surname, int age) {
+import java.util.UUID;
+
+public record UpdateAccountResponse(UUID id, String name, String surname, int age) {
 }
