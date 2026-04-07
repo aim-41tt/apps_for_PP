@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import com.example.RestTaskService.config.MapStructConfig;
 import com.example.RestTaskService.dto.request.task.CreateTaskRequest;
 import com.example.RestTaskService.dto.request.task.UpdateTaskRequest;
+import com.example.RestTaskService.dto.response.account.TaskInfo;
 import com.example.RestTaskService.dto.response.task.CreateTaskResponse;
 import com.example.RestTaskService.dto.response.task.GetTaskResponse;
 import com.example.RestTaskService.dto.response.task.ReassignTaskResponse;
@@ -36,6 +37,8 @@ public interface TaskMapper {
 
 	@Mapping(source = "account.id", target = "accountId")
 	ReassignTaskResponse toReassignResponse(Task task);
+	
+	TaskInfo toTaskInfo(Task task);
 	
 	List<GetTaskResponse> toGetTaskResponseList(List<Task> tasks);
 }
