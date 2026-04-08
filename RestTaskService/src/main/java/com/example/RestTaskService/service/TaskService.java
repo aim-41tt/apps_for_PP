@@ -32,12 +32,13 @@ public class TaskService {
 
 	@Transactional(readOnly = true)
 	public Task getTaskById(UUID id) {
-		return findTaskById(id);
+		return taskRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Задача не найдена с идентификатором: " + id));
 	}
 
 	@Transactional
 	public Task updateTask(UUID id, Task request) {
-		Task existingTask = findTaskById(id);
+		Task existingTask = getTaskById(id);
 		existingTask.setTitle(request.getTitle());
 		existingTask.setBody(request.getBody());
 		existingTask.setCompleted(request.isCompleted());
@@ -48,8 +49,5 @@ public class TaskService {
 		taskRepository.deleteById(id);
 	}
 
-	public Task findTaskById(UUID id) {
-		return taskRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Задача не найдена с идентификатором: " + id));
-	}
+
 }

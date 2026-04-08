@@ -2,10 +2,12 @@ package com.example.RestTaskService.config;
 
 import org.mapstruct.MapperConfig;
 import org.mapstruct.MappingConstants;
-import org.springframework.stereotype.Component;
+import org.mapstruct.ReportingPolicy;
 
-@MapperConfig(componentModel = MappingConstants.ComponentModel.SPRING)
-@Component
+@MapperConfig(
+		componentModel = MappingConstants.ComponentModel.SPRING,
+		unmappedTargetPolicy = ReportingPolicy.ERROR
+		)
 public class MapStructConfig {
 
 }

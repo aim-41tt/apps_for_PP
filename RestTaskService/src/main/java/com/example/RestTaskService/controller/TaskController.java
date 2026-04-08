@@ -23,9 +23,9 @@ import com.example.RestTaskService.dto.response.task.CreateTaskResponse;
 import com.example.RestTaskService.dto.response.task.GetTaskResponse;
 import com.example.RestTaskService.dto.response.task.ReassignTaskResponse;
 import com.example.RestTaskService.dto.response.task.UpdateTaskResponse;
+import com.example.RestTaskService.facade.TaskFacade;
 import com.example.RestTaskService.mapper.TaskMapper;
 import com.example.RestTaskService.model.Task;
-import com.example.RestTaskService.service.TaskFacade;
 import com.example.RestTaskService.service.TaskService;
 
 @RestController

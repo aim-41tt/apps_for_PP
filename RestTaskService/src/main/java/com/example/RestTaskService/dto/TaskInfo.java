@@ -1,4 +1,4 @@
-package com.example.RestTaskService.dto.response.account;
+package com.example.RestTaskService.dto;
 
 import java.util.UUID;
 

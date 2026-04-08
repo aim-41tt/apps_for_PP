@@ -1,4 +1,4 @@
-package com.example.RestTaskService.service;
+package com.example.RestTaskService.facade;
 
 import java.util.UUID;
 
@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.RestTaskService.model.Account;
 import com.example.RestTaskService.model.Task;
+import com.example.RestTaskService.service.AccountService;
+import com.example.RestTaskService.service.TaskService;
 
 import lombok.AllArgsConstructor;
 
@@ -26,7 +28,7 @@ public class TaskFacade {
 
 	@Transactional
 	public Task assignTaskToAccount(UUID taskId, UUID accountId) {
-		Task task = taskService.findTaskById(taskId);
+		Task task = taskService.getTaskById(taskId);
 
 		if (task.getAccount() != null && task.getAccount().getId().equals(accountId)) {
 			return task;
